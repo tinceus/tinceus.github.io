@@ -4,53 +4,848 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christine Joy Nañola | Content Marketing Specialist</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --text-primary: #e2e8f0;
+            --accent-teal: #0ea5e9;
+            --accent-purple: #8b5cf6;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --border-color: rgba(94, 234, 212, 0.1);
+            --gradient: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+            --glass-bg: rgba(15, 23, 42, 0.5);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        /* Navigation */
+        nav {
+            background: var(--glass-bg);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(14, 165, 233, 0.15);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span {
+            color: var(--accent-teal);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-teal);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding-top: 150px;
+            padding-bottom: 100px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
+            z-index: -1;
+            transition: var(--transition);
+            opacity: 0;
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent-teal);
+            margin-left: 15px;
+        }
+        
+        /* Metrics */
+        .metrics {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 50px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-teal);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+        }
+        
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .metric-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent-teal);
+        }
+        
+        .metric-description {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+        
+        /* Case Studies */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header p {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .case-study-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .case-study-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-teal);
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.2);
+        }
+        
+        .case-study-image {
+            height: 220px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+        }
+        
+        .case-study-content {
+            padding: 30px;
+        }
+        
+        .case-study-tag {
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--accent-teal);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .case-study-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .case-study-content p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+            min-height: 80px;
+        }
+        
+        .case-study-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Skills Section */
+        .skills {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-teal);
+        }
+        
+        .skill-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .skill-header h3 {
+            font-size: 1.5rem;
+            color: var(--accent-teal);
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .skill-list li::before {
+            content: '▹';
+            color: var(--accent-teal);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-about h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-teal);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .footer-about p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        
+        .footer-contact h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-teal);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+        
+        .contact-info li i {
+            color: var(--accent-teal);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 25px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding-top: 120px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .case-studies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="container nav-container">
+        <div class="nav-container">
             <div class="logo"><span>cj</span>nanola</div>
             <div class="nav-links">
-                <a href="index.html">Home</a>
+                <a href="#" class="active">Home</a>
                 <a href="blog.html">Blog</a>
+                <a href="#work">Work</a>
+                <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
             </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero">
+    <section class="hero">
         <div class="container">
-            <h1>Content Marketing for <span>Real Estate Innovators</span></h1>
-            <p>Data-driven strategies that convert audiences into revenue streams</p>
-            <a href="#work" class="btn">View My Work</a>
+            <div class="hero-content">
+                <h1>Content Marketing for Real Estate Innovators</h1>
+                <p>Data-driven strategies that convert audiences into revenue streams for real estate and coaching professionals</p>
+                <div class="hero-btns">
+                    <a href="#work" class="btn">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+                </div>
+            </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Portfolio Sections -->
-    <section id="work" class="portfolio-section">
-        <!-- Your portfolio content here -->
+    <!-- Metrics Section -->
+    <section class="metrics">
+        <div class="container">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">49.2%</div>
+                    <div class="metric-title">Avg. Email Open Rate</div>
+                    <div class="metric-description">vs 20-30% Industry Average</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">41.1%</div>
+                    <div class="metric-title">Avg. Email Click Rate</div>
+                    <div class="metric-description">vs 2-5% Industry Average</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">1,900%</div>
+                    <div class="metric-title">LinkedIn Reach Increase</div>
+                    <div class="metric-description">From ~20s to 200-500+ avg. views</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">1,150%</div>
+                    <div class="metric-title">Blog Traffic Growth</div>
+                    <div class="metric-description">Achieved within 6 months</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="work">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Case Studies</h2>
+                <p>Real-world examples of how strategic content drives measurable results for clients</p>
+            </div>
+            
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-image">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div class="case-study-content">
+                        <span class="case-study-tag">Social Media</span>
+                        <h3>LinkedIn Organic Reach Expansion</h3>
+                        <p>Increased client's LinkedIn reach by 1,900% through optimized content strategy and hashtag implementation.</p>
+                        <div class="case-study-meta">
+                            <span>Real Estate Coaching</span>
+                            <span>3 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-image">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="case-study-content">
+                        <span class="case-study-tag">Email Marketing</span>
+                        <h3>High-Performance Email Campaigns</h3>
+                        <p>Drove 49.2% open rates and 41.1% click rates with targeted email copy and segmentation strategy.</p>
+                        <div class="case-study-meta">
+                            <span>E-Commerce</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="case-study-content">
+                        <span class="case-study-tag">SEO Strategy</span>
+                        <h3>Organic Blog Traffic Growth</h3>
+                        <p>Achieved 1,150% organic traffic growth in 6 months through comprehensive SEO optimization.</p>
+                        <div class="case-study-meta">
+                            <span>Real Estate Agency</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Core Competencies</h2>
+                <p>Specialized skills and tools that drive exceptional marketing results</p>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h3>Content & Copywriting</h3>
+                    </div>
+                    <ul class="skill-list">
+                        <li>SEO Content Strategy</li>
+                        <li>Email Marketing Campaigns</li>
+                        <li>Blog & Article Writing</li>
+                        <li>Social Media Content</li>
+                        <li>Website Copywriting</li>
+                        <li>Lead Magnet Creation</li>
+                        <li>Case Study Development</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>SEO & Analytics</h3>
+                    </div>
+                    <ul class="skill-list">
+                        <li>Semrush</li>
+                        <li>AlsoAsked</li>
+                        <li>AnswerThePublic</li>
+                        <li>Google Search Console</li>
+                        <li>Keyword Research</li>
+                        <li>On-Page SEO Audits</li>
+                        <li>Performance Tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Marketing & Productivity</h3>
+                    </div>
+                    <ul class="skill-list">
+                        <li>CRM/Funnels: kvCORE, GoHighLevel</li>
+                        <li>Email: MailerLite, ConvertKit</li>
+                        <li>AI Tools: ChatGPT, Claude, Qwen</li>
+                        <li>Design/Video: Canva Pro, Capcut</li>
+                        <li>Productivity: Google Workspace, Notion</li>
+                        <li>Project Management: Trello, Asana</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo"><span>cj</span>nanola</div>
-                <p>Content Marketing Specialist for Real Estate & Coaching Professionals</p>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="#contact">Contact</a>
+                <div class="footer-about">
+                    <h3>Christine Joy Nañola</h3>
+                    <p>Results-driven Content Marketing Specialist passionate about empowering Real Estate and Coaching professionals through strategic, high-impact content.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
-                <p>Reach out at cjnanola99@gmail.com</p>
-                <p class="copyright">© 2025 Christine Joy Nañola. All rights reserved.</p>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>cjnanola99@gmail.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Based in Philippines</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-briefcase"></i>
+                            <span>Real Estate & Coaching Industries</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Christine Joy Nañola. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.style.display === 'flex') {
+                        navLinks.style.display = 'none';
+                    }
+                }
+            });
+        });
+        
+        // Add active class to nav links on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

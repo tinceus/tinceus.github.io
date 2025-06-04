@@ -4,56 +4,677 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketing Insights | Christine Joy Nañola</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/blog.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --text-primary: #e2e8f0;
+            --accent-teal: #0ea5e9;
+            --accent-purple: #8b5cf6;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --border-color: rgba(94, 234, 212, 0.1);
+            --gradient: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+            --glass-bg: rgba(15, 23, 42, 0.5);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: var(--glass-bg);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(14, 165, 233, 0.15);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span {
+            color: var(--accent-teal);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-teal);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Blog Header */
+        .blog-header {
+            padding: 150px 0 60px;
+            text-align: center;
+        }
+        
+        .blog-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .blog-header p {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 40px 0 80px;
+        }
+        
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-teal);
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.2);
+        }
+        
+        .card-image {
+            height: 220px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+        }
+        
+        .card-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--accent-teal);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+        
+        .card-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 60px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-teal);
+        }
+        
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+        
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-teal);
+        }
+        
+        .category-card p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        
+        .category-link {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .category-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-about h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-teal);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .footer-about p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        
+        .footer-contact h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-teal);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+        
+        .contact-info li i {
+            color: var(--accent-teal);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 25px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .blog-header h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .blog-header {
+                padding: 120px 0 40px;
+            }
+            
+            .blog-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .blog-header p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="container nav-container">
+        <div class="nav-container">
             <div class="logo"><span>cj</span>nanola</div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="blog.html" class="active">Blog</a>
+                <a href="#categories">Categories</a>
                 <a href="#contact">Contact</a>
             </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Blog Grid -->
-    <div class="container">
-        <div class="blog-header">
+    <!-- Blog Header -->
+    <section class="blog-header">
+        <div class="container">
             <h1>Marketing Insights & Strategies</h1>
             <p>Data-driven approaches for real estate and coaching professionals</p>
         </div>
-        
-        <div class="blog-grid">
-            <!-- LinkedIn Case Study -->
-            <a href="linkedin-case-study.html" class="blog-card">
-                <div class="card-image">
-                    <i class="fab fa-linkedin"></i>
-                </div>
-                <div class="card-content">
-                    <span class="category-tag">Social Media</span>
-                    <h3>LinkedIn Reach Expansion: 1,900% Growth Strategy</h3>
-                    <p>How we transformed a client's LinkedIn presence from minimal visibility to industry authority status.</p>
-                    <div class="card-meta">
-                        <span>June 4, 2025</span>
-                        <span>10 min read</span>
+    </section>
+
+    <!-- Blog Grid -->
+    <section>
+        <div class="container">
+            <div class="blog-grid">
+                <!-- LinkedIn Case Study -->
+                <a href="linkedin-case-study.html" class="blog-card">
+                    <div class="card-image">
+                        <i class="fab fa-linkedin"></i>
                     </div>
-                </div>
-            </a>
-            
-            <!-- Additional blog cards here -->
+                    <div class="card-content">
+                        <span class="category-tag">Social Media</span>
+                        <h3>LinkedIn Reach Expansion: 1,900% Growth Strategy</h3>
+                        <p>How we transformed a client's LinkedIn presence from minimal visibility to industry authority status.</p>
+                        <div class="card-meta">
+                            <span>June 4, 2025</span>
+                            <span>10 min read</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Email Marketing -->
+                <a href="email-case-study.html" class="blog-card">
+                    <div class="card-image">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="category-tag">Email Marketing</span>
+                        <h3>49.2% Open Rate: Anatomy of High-Performing Emails</h3>
+                        <p>The framework behind email campaigns that outperform industry averages by 250%.</p>
+                        <div class="card-meta">
+                            <span>May 28, 2025</span>
+                            <span>12 min read</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- SEO Strategy -->
+                <a href="seo-case-study.html" class="blog-card">
+                    <div class="card-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="category-tag">SEO Strategy</span>
+                        <h3>1,150% Traffic Growth: SEO Transformation Case Study</h3>
+                        <p>Revitalizing a stagnant real estate blog into a top-performing lead generation engine.</p>
+                        <div class="card-meta">
+                            <span>May 21, 2025</span>
+                            <span>14 min read</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Guide Development -->
+                <a href="guide-case-study.html" class="blog-card">
+                    <div class="card-image">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="category-tag">Content Creation</span>
+                        <h3>Creating Authoritative Guides That Generate Leads</h3>
+                        <p>Developing comprehensive resources that become primary lead magnets and training materials.</p>
+                        <div class="card-meta">
+                            <span>May 14, 2025</span>
+                            <span>9 min read</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Data-Driven Strategy -->
+                <a href="data-driven.html" class="blog-card">
+                    <div class="card-image">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="category-tag">Strategy</span>
+                        <h3>The Power of Data-Driven Content Strategy</h3>
+                        <p>How analytics transform content from guesswork to predictable revenue generation.</p>
+                        <div class="card-meta">
+                            <span>May 7, 2025</span>
+                            <span>8 min read</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Marketing Tools -->
+                <a href="tools.html" class="blog-card">
+                    <div class="card-image">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="category-tag">Resources</span>
+                        <h3>Essential Marketing Tools for Real Estate Professionals</h3>
+                        <p>My curated tech stack for maximizing efficiency and results in content marketing.</p>
+                        <div class="card-meta">
+                            <span>April 30, 2025</span>
+                            <span>11 min read</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Marketing</h3>
+                    <p>Strategies to boost open rates, click rates, and conversions through targeted email campaigns.</p>
+                    <a href="#" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>Social Media</h3>
+                    <p>Tactics for increasing reach, engagement, and authority on LinkedIn and other platforms.</p>
+                    <a href="#" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>SEO Strategy</h3>
+                    <p>Proven techniques for improving search rankings and driving organic traffic growth.</p>
+                    <a href="#" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Content Creation</h3>
+                    <p>Crafting compelling content that resonates with audiences and drives conversions.</p>
+                    <a href="#" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
-        <!-- Same as index.html -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Christine Joy Nañola</h3>
+                    <p>Results-driven Content Marketing Specialist passionate about empowering Real Estate and Coaching professionals through strategic, high-impact content.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>cjnanola99@gmail.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Based in Philippines</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-briefcase"></i>
+                            <span>Real Estate & Coaching Industries</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Christine Joy Nañola. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    navLinks.style.display = 'none';
+                }
+            });
+        });
+        
+        // Add active class to nav links on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
